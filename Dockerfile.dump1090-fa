@@ -1,0 +1,43 @@
+FROM <<BASECONTAINER>>
+MAINTAINER docker@intrepid.de
+
+env USERID 9003
+
+#ToDo:
+# - https://github.com/mossmann/hackrf
+# - run as non-root user
+# - add limesdr
+
+RUN passwd -l root ; \
+    apk --update --upgrade --no-cache add bash ncurses librtlsdr musl libusb fftw libedit && \
+    apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev && \
+    mkdir -p /usr/src && \
+    cd /usr/src && \
+    git clone https://github.com/Nuand/bladeRF.git && \
+    cd bladeRF/host && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && \
+    make install && \
+    cd /usr/src && \
+    git clone https://github.com/flightaware/dump1090.git && \
+    cd dump1090 && \
+# arm bug in v5.0, use dev currently
+    git fetch -all && \
+    git reset --hard origin/dev && \
+#
+    make && \
+    make install && \
+#
+    adduser -S -u ${USERID} -D -H -s /bin/false dump1090 && \
+#
+    apk del gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev && \
+    cd / && \
+    ln -s /usr/local/bin/dump1090 /usr/local/bin/dump1090-fa && \
+    rm -rf /tmp/* /var/tmp/* /usr/src ; \
+    test  -x /usr/local/bin/dump1090
+
+EXPOSE 30001 30002 30003 30004 30005
+CMD ["/usr/local/bin/dump1090", "--quiet", "--net", "--fix", "--modeac", "--enable-df24", "--forward-mlat" ]
+
