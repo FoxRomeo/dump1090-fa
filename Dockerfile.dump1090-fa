@@ -13,7 +13,7 @@ RUN passwd -l root ; \
     mkdir -p /usr/src && \
     cd /usr/src && \
 # BladeRF
-    git clone https://github.com/Nuand/bladeRF.git && \
+    git clone --depth 1 https://github.com/Nuand/bladeRF.git && \
     cd bladeRF/host && \
     mkdir build && \
     cd build && \
@@ -22,7 +22,7 @@ RUN passwd -l root ; \
     make install && \
     cd /usr/src && \
 # HackRF
-    git clone https://github.com/mossmann/hackrf && \
+    git clone --depth 1 https://github.com/mossmann/hackrf && \
     cd hackrf/host && \
     mkdir build && \
     cd build && \
@@ -31,7 +31,7 @@ RUN passwd -l root ; \
     make install && \
     cd /usr/src && \
 # SoapySDR for LimeSDR
-    git clone https://github.com/pothosware/SoapySDR.git && \
+    git clone --depth 1 https://github.com/pothosware/SoapySDR.git && \
     cd SoapySDR && \
     mkdir build && \
     cd build && \
@@ -40,7 +40,7 @@ RUN passwd -l root ; \
     make install && \
     cd /usr/src && \
 # LimeSDR Suite
-    git clone https://github.com/myriadrf/LimeSuite.git && \
+    git clone --depth 1 https://github.com/myriadrf/LimeSuite.git && \
     cd LimeSuite/build && \
     cmake .. && \
     make -j 1 && \
