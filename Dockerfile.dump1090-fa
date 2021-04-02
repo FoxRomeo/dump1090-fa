@@ -50,7 +50,7 @@ RUN passwd -l root ; \
     git clone https://github.com/flightaware/dump1090.git && \
     cd dump1090 && \
 # arm bug in v5.0, use dev currently
-    git fetch -all && \
+    git fetch --all && \
     git reset --hard origin/dev && \
 #
     make -j 1 && \
