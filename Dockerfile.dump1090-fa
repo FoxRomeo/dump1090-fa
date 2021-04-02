@@ -4,7 +4,6 @@ MAINTAINER docker@intrepid.de
 env USERID 9003
 
 #ToDo:
-# - https://github.com/mossmann/hackrf
 # - run as non-root user
 # - add limesdr
 
@@ -13,6 +12,7 @@ RUN passwd -l root ; \
     apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev && \
     mkdir -p /usr/src && \
     cd /usr/src && \
+# BladeRF
     git clone https://github.com/Nuand/bladeRF.git && \
     cd bladeRF/host && \
     mkdir build && \
@@ -21,6 +21,16 @@ RUN passwd -l root ; \
     make -j 1 && \
     make install && \
     cd /usr/src && \
+# HackRF
+    git clone https://github.com/mossmann/hackrf && \
+    cd hackrf/host && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make -j 1 && \
+    make install && \
+    cd /usr/src && \
+# dumpm1090
     git clone https://github.com/flightaware/dump1090.git && \
     cd dump1090 && \
 # arm bug in v5.0, use dev currently
@@ -28,7 +38,7 @@ RUN passwd -l root ; \
     git reset --hard origin/dev && \
 #
     make -j 1 && \
-#    make install && \
+    cp dump1090 /usr/local/bin
 #
     adduser -S -u ${USERID} -D -H -s /bin/false dump1090 && \
 #
