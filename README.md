@@ -1,7 +1,7 @@
 # dump1090-fa
 
-<a href="https://hub.docker.com/r/intrepidde/arm32v6-dump1090"><img src="https://img.shields.io/docker/pulls/intrepidde/arm32v6-dump1090.svg?style=plastic&logo=appveyor" alt="Docker pulls"/></a> arm32v6<br>
-<a href="https://hub.docker.com/r/intrepidde/arm64v8-dump1090"><img src="https://img.shields.io/docker/pulls/intrepidde/arm64v8-dump1090.svg?style=plastic&logo=appveyor" alt="Docker pulls"/></a> arm64v8<br>
+<a href="https://hub.docker.com/r/intrepidde/arm32v6-dump1090-fa"><img src="https://img.shields.io/docker/pulls/intrepidde/arm32v6-dump1090.svg?style=plastic&logo=appveyor" alt="Docker pulls"/></a> arm32v6<br>
+<a href="https://hub.docker.com/r/intrepidde/arm64v8-dump1090-fa"><img src="https://img.shields.io/docker/pulls/intrepidde/arm64v8-dump1090.svg?style=plastic&logo=appveyor" alt="Docker pulls"/></a> arm64v8<br>
 
 __Build a docker container with dump1090-fa for arm32v6 (and if working arm64v8) for rtlsdr, bladerf devices__
 
