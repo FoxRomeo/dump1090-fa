@@ -5,11 +5,11 @@ env USERID 9003
 
 #ToDo:
 # - run as non-root user
-# - add limesdr
+# - check wisdom
 
 RUN passwd -l root ; \
-    apk --update --upgrade --no-cache add bash ncurses librtlsdr musl libusb fftw libedit && \
-    apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev && \
+    apk --update --upgrade --no-cache add bash ncurses librtlsdr musl libusb fftw libedit i2c-tools && \
+    apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev i2c-tools-dev && \
     mkdir -p /usr/src && \
     cd /usr/src && \
 # BladeRF
@@ -30,6 +30,22 @@ RUN passwd -l root ; \
     make -j 1 && \
     make install && \
     cd /usr/src && \
+# SoapySDR for LimeSDR
+    git clone https://github.com/pothosware/SoapySDR.git && \
+    cd SoapySDR && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make -j 1 && \
+    make install && \
+    cd /usr/src && \
+# LimeSDR Suite
+    git clone https://github.com/myriadrf/LimeSuite.git && \
+    cd LimeSuite/build && \
+    cmake .. && \
+    make -j 1 && \
+    make install && \
+    cd /usr/src && \
 # dumpm1090
     git clone https://github.com/flightaware/dump1090.git && \
     cd dump1090 && \
@@ -38,7 +54,7 @@ RUN passwd -l root ; \
     git reset --hard origin/dev && \
 #
     make -j 1 && \
-    cp dump1090 /usr/local/bin
+    cp dump1090 view1090 starch-benchmark /usr/local/bin
 #
     adduser -S -u ${USERID} -D -H -s /bin/false dump1090 && \
 #
