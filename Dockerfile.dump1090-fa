@@ -12,6 +12,22 @@ RUN passwd -l root ; \
     apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev i2c-tools-dev && \
     mkdir -p /usr/src && \
     cd /usr/src && \
+# SoapySDR for LimeSDR
+    git clone --depth 1 https://github.com/pothosware/SoapySDR.git && \
+    cd SoapySDR && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make -j 1 && \
+    make install && \
+    cd /usr/src && \
+# LimeSDR Suite
+    git clone --depth 1 https://github.com/myriadrf/LimeSuite.git && \
+    cd LimeSuite/build && \
+    cmake .. && \
+    make -j 1 && \
+    make install && \
+    cd /usr/src && \
 # BladeRF
     git clone --depth 1 https://github.com/Nuand/bladeRF.git && \
     cd bladeRF/host && \
@@ -26,22 +42,6 @@ RUN passwd -l root ; \
     cd hackrf/host && \
     mkdir build && \
     cd build && \
-    cmake .. && \
-    make -j 1 && \
-    make install && \
-    cd /usr/src && \
-# SoapySDR for LimeSDR
-    git clone --depth 1 https://github.com/pothosware/SoapySDR.git && \
-    cd SoapySDR && \
-    mkdir build && \
-    cd build && \
-    cmake .. && \
-    make -j 1 && \
-    make install && \
-    cd /usr/src && \
-# LimeSDR Suite
-    git clone --depth 1 https://github.com/myriadrf/LimeSuite.git && \
-    cd LimeSuite/build && \
     cmake .. && \
     make -j 1 && \
     make install && \
