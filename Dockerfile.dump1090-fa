@@ -8,7 +8,7 @@ env USERID 9003
 # - check wisdom
 
 RUN passwd -l root ; \
-    apk --update --upgrade --no-cache add bash ncurses librtlsdr musl libusb fftw libedit i2c-tools && \
+    apk --update --upgrade --no-cache add bash ncurses librtlsdr musl libstdc++ libusb fftw libedit i2c-tools && \
     apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev i2c-tools-dev && \
     mkdir -p /usr/src && \
     cd /usr/src && \
