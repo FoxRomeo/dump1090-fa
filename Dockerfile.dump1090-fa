@@ -1,4 +1,5 @@
-FROM <<BASECONTAINER>>
+ARG ARCH=
+FROM ${ARCH}/<<BASECONTAINER>>
 MAINTAINER docker@intrepid.de
 
 ENV USERID 9003
@@ -48,24 +49,26 @@ RUN passwd -l root ; \
 # dumpm1090
     git clone https://github.com/flightaware/dump1090.git && \
     cd dump1090 && \
-# arm bug in v5.0, use dev currently
+### arm bug in v5.0, use dev currently
     git fetch --all && \
     git reset --hard origin/dev && \
-#
+### back to normal operation
     make -j 1 && \
     cp dump1090 view1090 starch-benchmark /usr/local/bin && \
+    ln -s /usr/local/bin/dump1090 /usr/local/bin/dump1090-fa && \
 # create wisdom.local
     make -j 1 wisdom.local && \
     mkdir /etc/dump1090-fa && \
     cp wisdom.local /etc/dump1090-fa && \
-#
-#    adduser -S -u ${USERID} -D -H -s /bin/false dump1090 && \
-#
+# cleanup
     apk del gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev && \
     cd / && \
-    ln -s /usr/local/bin/dump1090 /usr/local/bin/dump1090-fa && \
     rm -rf /tmp/* /var/tmp/* /usr/src ; \
     test  -x /usr/local/bin/dump1090
+
+
+# RUN adduser -S -u ${USERID} -D -H -s /bin/false dump1090 && \
+
 
 EXPOSE 30001 30002 30003 30004 30005
 CMD ["/usr/local/bin/dump1090", "--quiet", "--net", "--fix", "--modeac", "--enable-df24", "--forward-mlat", "--wisdom", "/etc/dump1090-fa/wisdom.local" ]
