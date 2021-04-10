@@ -6,7 +6,7 @@
 __Build a docker container with dump1090-fa for arm32v6 (and if working arm64v8) for rtlsdr, bladerf devices__
 
 ## work in progress
-
+__(First tests successful combined with mikenye/fr24feed:latest_arm_v6 on different RPis)__
 
 ## Usage
 docker run -d --restart unless-stopped --privileged -p 30001-30005:30001-30005 --name dump1090 intrepidde/arm32v6-dump1090-fa:latest
