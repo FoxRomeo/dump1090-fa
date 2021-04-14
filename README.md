@@ -3,15 +3,18 @@
 <a href="https://hub.docker.com/r/intrepidde/arm32v6-dump1090-fa"><img src="https://img.shields.io/docker/pulls/intrepidde/arm32v6-dump1090-fa.svg?style=plastic&logo=appveyor" alt="Docker pulls"/></a> arm32v6 container<br>
 <a href="https://hub.docker.com/r/intrepidde/arm64v8-dump1090-fa"><img src="https://img.shields.io/docker/pulls/intrepidde/arm64v8-dump1090-fa.svg?style=plastic&logo=appveyor" alt="Docker pulls"/></a> arm64v8 container<br>
 
-__Build a docker container with dump1090-fa for arm32v6 (and if working arm64v8) for rtlsdr, bladerf devices__
+__Build a docker container with dump1090-fa for arm32v6 and arm64v8 for rtlsdr, bladerf devices__
 
 ## work in progress
+
 __(First tests successful combined with mikenye/fr24feed:latest_arm_v6 each on a different RPi)__
 
 
 ## Available Parameters
 Usage is similar to direct dump1090 usage
+
 | Environment Variable | Purpose | Default |
+| -------------------- | ------- | ------- |
 | `QUIET` | != 0 to enable quiet | enabled |
 | `LAT <latitude>` | Reference/receiver latitude for surface posn | - |
 | `LON <longitude>` | Reference/receiver longitude for surface posn | - |
@@ -25,11 +28,12 @@ Usage is similar to direct dump1090 usage
 | `STRATUX-PORT <ports>` | TCP Stratux output listen ports | disabled |
 | `JSON_DIR` | Periodically write json output to <dir> | - |
 | `JSON_EVERY` | Write json aircraft output every t seconds | 1 |
-| `JSON_STATS` | Write json stats output every t seconds | 60|
+| `JSON_STATS` | Write json stats output every t seconds | 60 |
 | `ADDITIONAL_PARAMS` | custom additional parameters | - |
 | `DEFAULT_PARAMETERS` | overwrite default parameters | --net --fix --modeac --enable-df24 --forward-mlat |
 
 ## Usage
+
 ```docker run -d --restart unless-stopped --privileged -e QUIET=1 -p 30001-30005:30001-30005 --name dump1090 intrepidde/arm32v6-dump1090-fa:latest```
 
 or
