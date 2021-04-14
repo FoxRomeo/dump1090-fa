@@ -2,6 +2,7 @@
 
 EXITCODE=0
 
+
 if [[ -z "${RI_PORT}" ]]; then
  RI_PORT=30001
 fi
@@ -52,5 +53,32 @@ else
     EXITCODE=1
 fi
 
+
+if [ -n "${JSON_PATH}" ]; then
+ if [ -z "${JSON_STATS}" ]; then
+  JSON_STATS=60
+ fi
+ TIMESTAMP_FILE=`date -r ${JSON_PATH}/stats.json "+%s"`
+ TIMESTAMP_NOW=`date +%s`
+ TIMESTAMP_DIFF=$(echo "($TIMESTAMP_NOW - $LOG_LAST_ENTRY_TIMESTAMP) < (${JSON_STATS} * 5)" | bc)
+ if [ "$TIMESTAMP_DIFF" -eq 1 ]; then
+  echo "file ${JSON_PATH}/stats.json modified. HEALTHY"
+ else
+  echo "file ${JSON_PATH}/stats.json not modified the last ${JSON_STATS} * 5 seconds. UNHEALTHY"
+  EXITCODE=1
+ fi	
+ if [ -z "${JSON_EVERY}" ]; then
+  JSON_EVERY=1
+ fi
+ TIMESTAMP_FILE=`date -r ${JSON_PATH}/receiver.json "+%s"`
+ TIMESTAMP_NOW=`date +%s`
+ TIMESTAMP_DIFF=$(echo "($TIMESTAMP_NOW - $LOG_LAST_ENTRY_TIMESTAMP) < ${JSON_EVERY} * 5)" | bc)
+ if [ "$TIMESTAMP_DIFF" -eq 1 ]; then
+  echo "file ${JSON_PATH}/receiver.json modified. HEALTHY"
+ else
+  echo "file ${JSON_PATH}/receiver.json not modified the last ${JSON_EVERY} * 5 seconds. UNHEALTHY"
+  EXITCODE=1
+ fi	
+fi
 
 exit $EXITCODE
