@@ -6,23 +6,28 @@
 __Build a docker container with dump1090-fa for arm32v6 (and if working arm64v8) for rtlsdr, bladerf devices__
 
 ## work in progress
-__(First tests successful combined with mikenye/fr24feed:latest_arm_v6 on different RPis)__
+__(First tests successful combined with mikenye/fr24feed:latest_arm_v6 each on a different RPi)__
 
 
 ## Available Parameters
 Usage is similar to direct dump1090 usage
-```QUIET```                 != 0 to enable quiet                  
-```LAT <latitude>```        Reference/receiver latitude for surface posn
-```LON <longitude>```       Reference/receiver longitude for surface posn
-```WISDOM_PATH <path>```    Path to wisdom files (so not set to use includes files)
-```BIND-ADDRESS <ip>```     IP address to bind to (default: Any; Use 127.0.0.1 for private)
-```RI-PORT <ports>```       TCP raw input listen ports  (default: 30001)
-```RO-PORT <ports>```       TCP raw output listen ports (default: 30002)
-```SBS-PORT <ports>```      TCP BaseStation output listen ports (default: 30003)
-```BI-PORT <ports>```       TCP Beast input listen ports  (default: 30004,30104)
-```BO-PORT <ports>```       TCP Beast output listen ports (default: 30005)
-```STRATUX-PORT <ports>```  TCP Stratux output listen ports (default: disabled)
-
+| Environment Variable | Purpose | Default |
+| `QUIET` | != 0 to enable quiet | enabled |
+| `LAT <latitude>` | Reference/receiver latitude for surface posn | - |
+| `LON <longitude>` | Reference/receiver longitude for surface posn | - |
+| `WISDOM_PATH <path>` | Path to wisdom files | /etc/dump1090-fa/wisdom.local |
+| `BIND-ADDRESS <ip>` | IP address to bind to (Use 127.0.0.1 for private) | any |
+| `RI-PORT <ports>` | TCP raw input listen ports | 30001 |
+| `RO-PORT <ports>` | TCP raw output listen ports | 30002 |
+| `SBS-PORT <ports>` | TCP BaseStation output listen ports | 30003 |
+| `BI-PORT <ports>` | TCP Beast input listen ports | 30004 |
+| `BO-PORT <ports>` | TCP Beast output listen ports | 30005 |
+| `STRATUX-PORT <ports>` | TCP Stratux output listen ports | disabled |
+| `JSON_DIR` | Periodically write json output to <dir> | - |
+| `JSON_EVERY` | Write json aircraft output every t seconds | 1 |
+| `JSON_STATS` | Write json stats output every t seconds | 60|
+| `ADDITIONAL_PARAMS` | custom additional parameters | - |
+| `DEFAULT_PARAMETERS` | overwrite default parameters | --net --fix --modeac --enable-df24 --forward-mlat |
 
 ## Usage
 ```docker run -d --restart unless-stopped --privileged -e QUIET=1 -p 30001-30005:30001-30005 --name dump1090 intrepidde/arm32v6-dump1090-fa:latest```

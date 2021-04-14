@@ -47,8 +47,15 @@ if [ -n "${BO_PORT}" ]; then
 fi
 
 if [ -n "${STRATUX_PORT}" ]; then
- PARAMS="${PARAMS} --net-stratux-port ${STRATUX_PORT}"
+ PARAMS="${PARAMS} --write-json ${JSON_PATH}"
 fi
+if [ -n "${STRATUX_PORT}" ]; then
+ PARAMS="${PARAMS} --write-json-every ${JSON_EVERY}"
+fi
+if [ -n "${STRATUX_PORT}" ]; then
+ PARAMS="${PARAMS} --json-stats-every ${JSON_STATS}"
+fi
+
 
 if [ -n "${ADDITIONAL_PARAMS}" ]; then
  PARAMS="${PARAMS} ${ADDITIONAL_PARAMS}"
