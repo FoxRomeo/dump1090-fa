@@ -19,13 +19,13 @@ Usage is similar to direct dump1090 usage
 | `LAT <latitude>` | Reference/receiver latitude for surface posn | - |
 | `LON <longitude>` | Reference/receiver longitude for surface posn | - |
 | `WISDOM_PATH <path>` | Path to wisdom files | /etc/dump1090-fa/wisdom.local |
-| `BIND-ADDRESS <ip>` | IP address to bind to (Use 127.0.0.1 for private) | any |
-| `RI-PORT <ports>` | TCP raw input listen ports | 30001 |
-| `RO-PORT <ports>` | TCP raw output listen ports | 30002 |
-| `SBS-PORT <ports>` | TCP BaseStation output listen ports | 30003 |
-| `BI-PORT <ports>` | TCP Beast input listen ports | 30004 |
-| `BO-PORT <ports>` | TCP Beast output listen ports | 30005 |
-| `STRATUX-PORT <ports>` | TCP Stratux output listen ports | disabled |
+| `BIND_ADDRESS <ip>` | IP address to bind to (Use 127.0.0.1 for private) | any |
+| `RI_PORT <ports>` | TCP raw input listen ports | 30001 |
+| `RO_PORT <ports>` | TCP raw output listen ports | 30002 |
+| `SBS_PORT <ports>` | TCP BaseStation output listen ports | 30003 |
+| `BI_PORT <ports>` | TCP Beast input listen ports | 30004 |
+| `BO_PORT <ports>` | TCP Beast output listen ports | 30005 |
+| `STRATUX_PORT <ports>` | TCP Stratux output listen ports | disabled |
 | `JSON_DIR` | Periodically write json output to <dir> | - |
 | `JSON_EVERY` | Write json aircraft output every t seconds | 1 |
 | `JSON_STATS` | Write json stats output every t seconds | 60 |
@@ -34,7 +34,7 @@ Usage is similar to direct dump1090 usage
 
 ## Usage
 
-```docker run -d --restart unless-stopped --privileged -e QUIET=1 -p 30001-30005:30001-30005 --name dump1090 intrepidde/arm32v6-dump1090-fa:latest```
+```docker run -d --restart unless-stopped --privileged -e QUIET=1 --device /dev/bus/usb:/dev/bus/usb -p 30001-30005:30001-30005 --name dump1090 intrepidde/arm32v6-dump1090-fa:latest```
 
 or
 
