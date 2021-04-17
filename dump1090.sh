@@ -11,7 +11,7 @@ if [ -n "${QUIET}" && "{QUIET}" != "0" ]; then
 fi
 
 if [ -n "${LAT}" ]; then
- PARAMS="${PARAMS} --lat ${LAT}]"
+ PARAMS="${PARAMS} --lat ${LAT}"
 fi
 
 if [ -n "${LON}" ]; then
