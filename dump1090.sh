@@ -6,7 +6,7 @@ else
  PARAMS="${DEFAULT_PARAMETERS}"
 fi
 
-if [ -n "${QUIET}" && "{QUIET}" != "0" ]; then
+if [ -n "${QUIET}" && "{QUIET}" -ne "0" ]; then
  PARAMS="${PARAMS} --quiet"
 fi
 

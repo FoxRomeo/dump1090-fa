@@ -66,7 +66,7 @@ if [ -n "${JSON_PATH}" ]; then
  else
   echo "file ${JSON_PATH}/stats.json not modified the last ${JSON_STATS} * 5 seconds. UNHEALTHY"
   EXITCODE=1
- fi	
+ fi
  if [ -z "${JSON_EVERY}" ]; then
   JSON_EVERY=1
  fi
@@ -78,7 +78,7 @@ if [ -n "${JSON_PATH}" ]; then
  else
   echo "file ${JSON_PATH}/receiver.json not modified the last ${JSON_EVERY} * 5 seconds. UNHEALTHY"
   EXITCODE=1
- fi	
+ fi
 fi
 
 exit $EXITCODE
