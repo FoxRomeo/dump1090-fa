@@ -6,8 +6,8 @@ COPY dump1090.sh /
 COPY health.sh /
 
 RUN passwd -l root ; \
-    apk --update --upgrade --no-cache add bash net-tools ncurses librtlsdr musl libstdc++ libusb fftw libedit i2c-tools python3 python3-dbg py3-pip doxygen && \
-    apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev i2c-tools-dev python3-dev && \
+    apk --update --upgrade --no-cache add bash net-tools ncurses openssl librtlsdr musl libstdc++ libusb fftw libedit i2c-tools python3 python3-dbg py3-pip doxygen && \
+    apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git openssl-dev ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev i2c-tools-dev python3-dev && \
     mkdir -p /usr/src && \
     cd /usr/src && \
 # SoapySDR for LimeSDR
@@ -61,7 +61,7 @@ RUN passwd -l root ; \
 # activate scripts
     chmod 755 /dump1090.sh /health.sh && \
 # cleanup
-    apk del gcc make cmake alpine-sdk musl-dev git ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev fftw-dev libedit-dev i2c-tools-dev python3-dev && \
+    apk del gcc make cmake alpine-sdk musl-dev git openssl-dev ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev fftw-dev libedit-dev i2c-tools-dev python3-dev && \
     cd / && \
     rm -rf /tmp/* /var/tmp/* /usr/src ; \
     test -x /usr/local/bin/dump1090
