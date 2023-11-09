@@ -19,18 +19,18 @@ RUN passwd -l root ; \
     make -j 1 && \
     make install && \
     cd /usr/src && \
-# LimeSDR Suite
-    git clone --depth 1 https://github.com/myriadrf/LimeSuite.git && \
-    cd LimeSuite/build && \
-    cmake .. && \
-    make CFLAGS="-Wno-error=type-limits" -j 1 && \
-    make install && \
-    cd /usr/src && \
 # BladeRF
     git clone --depth 1 https://github.com/Nuand/bladeRF.git && \
     cd bladeRF/host && \
     mkdir build && \
     cd build && \
+    cmake .. && \
+    make CFLAGS="-Wno-error=type-limits" -j 1 && \
+    make install && \
+    cd /usr/src && \
+# LimeSDR Suite
+    git clone --depth 1 https://github.com/myriadrf/LimeSuite.git && \
+    cd LimeSuite/build && \
     cmake .. && \
     make CFLAGS="-Wno-error=type-limits" -j 1 && \
     make install && \
