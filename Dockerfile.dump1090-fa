@@ -5,6 +5,8 @@ MAINTAINER docker@intrepid.de
 COPY dump1090.sh /
 COPY health.sh /
 
+ENV CFLAGS="-Wno-error=type-limits"
+
 RUN passwd -l root ; \
     apk --update --upgrade --no-cache add bash net-tools ncurses openssl librtlsdr musl libstdc++ libusb fftw libedit i2c-tools python3 python3-dbg py3-pip doxygen && \
     apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git openssl-dev ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev i2c-tools-dev python3-dev && \
@@ -25,14 +27,14 @@ RUN passwd -l root ; \
     mkdir build && \
     cd build && \
     cmake .. && \
-    make CFLAGS="-Wno-error=type-limits" -j 1 && \
+    make  -j 1 && \
     make install && \
     cd /usr/src && \
 # LimeSDR Suite
     git clone --depth 1 https://github.com/myriadrf/LimeSuite.git && \
     cd LimeSuite/build && \
     cmake .. && \
-    make CFLAGS="-Wno-error=type-limits" -j 1 && \
+    make -j 1 && \
     make install && \
     cd /usr/src && \
 # HackRF
