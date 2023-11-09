@@ -32,7 +32,7 @@ RUN passwd -l root ; \
     mkdir build && \
     cd build && \
     cmake .. && \
-    make -j 1 && \
+    make CFLAGS="-Wno-error=type-limits" -j 1 && \
     make install && \
     cd /usr/src && \
 # HackRF
