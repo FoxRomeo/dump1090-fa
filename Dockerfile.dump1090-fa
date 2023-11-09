@@ -23,7 +23,7 @@ RUN passwd -l root ; \
     git clone --depth 1 https://github.com/myriadrf/LimeSuite.git && \
     cd LimeSuite/build && \
     cmake .. && \
-    make -j 1 && \
+    make CFLAGS="-Wno-error=type-limits" -j 1 && \
     make install && \
     cd /usr/src && \
 # BladeRF
