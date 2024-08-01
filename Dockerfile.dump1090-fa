@@ -24,6 +24,8 @@ RUN passwd -l root ; \
 # BladeRF
     git clone --depth 1 https://github.com/Nuand/bladeRF.git && \
     cd bladeRF/host && \
+    git submodule init && \
+    git submodule update --depth 1 && \
     mkdir build && \
     cd build && \
     cmake .. && \
