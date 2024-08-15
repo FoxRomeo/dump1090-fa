@@ -8,8 +8,37 @@ COPY health.sh /
 ENV CFLAGS="-Wno-error=type-limits"
 
 RUN passwd -l root ; \
-    apk --update --upgrade --no-cache add bash net-tools ncurses openssl librtlsdr musl libstdc++ libusb fftw libedit i2c-tools python3 python3-dbg py3-pip doxygen && \
-    apk --update --upgrade --no-cache add gcc make cmake alpine-sdk musl-dev git openssl-dev ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev i2c-tools-dev python3-dev && \
+    apk --update --upgrade --no-cache add \
+      bash \
+      net-tools \
+      ncurses \
+      openssl \
+      librtlsdr \
+      musl \
+      libstdc++ \
+      libusb \
+      fftw \
+      libedit \
+      i2c-tools \
+      python3 \
+      python3-dbg \
+      py3-pip \
+      doxygen && \
+    apk --update --upgrade --no-cache add \
+      gcc \
+      make \
+      cmake \
+      alpine-sdk \
+      musl-dev \
+      git \
+      openssl-dev \
+      ncurses-dev \
+      librtlsdr-dev \
+      libusb-dev \
+      fftw-dev \
+      libedit-dev \
+      i2c-tools-dev \
+      python3-dev && \
     mkdir -p /usr/src && \
     cd /usr/src && \
 # SoapySDR for LimeSDR
@@ -49,11 +78,11 @@ RUN passwd -l root ; \
     make install && \
     cd /usr/src && \
 # dumpm1090
-    git clone https://github.com/flightaware/dump1090.git && \
+    git clone --depth 1 https://github.com/flightaware/dump1090.git && \
     cd dump1090 && \
 ### arm bug in v5.0, use dev currently
-    git fetch --all && \
-    git reset --hard origin/dev && \
+#    git fetch --all && \
+#    git reset --hard origin/dev && \
 ### back to normal operation
     make -j 1 && \
     cp dump1090 view1090 starch-benchmark /usr/local/bin && \
@@ -65,14 +94,28 @@ RUN passwd -l root ; \
 # activate scripts
     chmod 755 /dump1090.sh /health.sh && \
 # cleanup
-    apk del gcc make cmake alpine-sdk musl-dev git openssl-dev ncurses-dev librtlsdr-dev libusb-dev fftw-dev libedit-dev fftw-dev libedit-dev i2c-tools-dev python3-dev && \
+    apk del \
+      gcc \
+      make \
+      cmake \
+      alpine-sdk \
+      musl-dev \
+      git \
+      openssl-dev \
+      ncurses-dev \
+      librtlsdr-dev \
+      libusb-dev \
+      fftw-dev \
+      libedit-dev \
+      fftw-dev \
+      libedit-dev \
+      i2c-tools-dev \
+      python3-dev && \
     cd / && \
     rm -rf /tmp/* /var/tmp/* /usr/src ; \
     test -x /usr/local/bin/dump1090
 
-
-
-HEALTHCHECK --start-period=3m --interval=3m --timeout=10s CMD /health.sh
+HEALTHCHECK --start-period=1m --interval=2m --timeout=10s CMD /health.sh
 
 EXPOSE 30001 30002 30003 30004 30005
 CMD ["/dump1090.sh" ]
