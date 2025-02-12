@@ -51,7 +51,9 @@ RUN passwd -l root ; \
     make install && \
     cd /usr/src && \
 # BladeRF
-    git clone --depth 1 https://github.com/Nuand/bladeRF.git && \
+#    git clone --depth 1 https://github.com/Nuand/bladeRF.git && \
+# Workaround until https://github.com/Nuand/bladeRF/pull/984 is merged (not only closed, MERGED!!!)
+    git clone --depth 1 https://github.com/MartinHerren/bladeRF/tree/fix_gcc14_compile_error && \
     cd bladeRF/host && \
     git submodule init && \
     git submodule update --depth 1 && \
