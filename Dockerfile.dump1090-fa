@@ -80,7 +80,9 @@ RUN passwd -l root ; \
     make install && \
     cd /usr/src && \
 # dumpm1090
-    git clone --depth 1 https://github.com/flightaware/dump1090.git && \
+#    git clone --depth 1 https://github.com/flightaware/dump1090.git && \
+# Workaround until https://github.com/flightaware/dump1090/pull/239 is merged (no more waiting for "next release" please!)
+    git clone --depth 1 https://github.com/Swiftyhu/dump1090 && \
     cd dump1090 && \
 ### arm bug in v5.0, use dev currently
 #    git fetch --all && \
